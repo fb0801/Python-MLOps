@@ -5,6 +5,7 @@ Python MLOps project using; Python, Docker and more
 
 
 # Issues:
+Added addiontal lines to fix not defined and other errors
 
 
 # Lessons learnt:
@@ -20,3 +21,7 @@ Python MLOps project using; Python, Docker and more
 - original repo -> https://github.com/ayush714/mlops-projects-course/tree/main
 
 - https://www.toptal.com/developers/gitignore
+
+- https://pypi.org/project/zenml/0.39.1/
+
+https://docs.zenml.io/getting-started/installation#jupyter-notebooks
