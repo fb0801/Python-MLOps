@@ -24,4 +24,7 @@ Added addiontal lines to fix not defined and other errors
 
 - https://pypi.org/project/zenml/0.39.1/
 
-https://docs.zenml.io/getting-started/installation#jupyter-notebooks
+- https://docs.zenml.io/getting-started/installation#jupyter-notebooks
+
+- https://www.youtube.com/watch?v=A7FJsJ4yQSU
+
