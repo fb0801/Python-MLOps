@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  jupyter:
+    image: jupyter/base-notebook:python-3.10
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/home/jovyan/work
+    command: >
+      bash -c "pip install zenml &&
+               start-notebook.sh --NotebookApp.token=''"
+
+
+

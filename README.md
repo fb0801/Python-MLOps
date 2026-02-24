@@ -28,3 +28,4 @@ Added addiontal lines to fix not defined and other errors
 
 - https://www.youtube.com/watch?v=A7FJsJ4yQSU
 
+- https://pypi.org/project/zenml/
