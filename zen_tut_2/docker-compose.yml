@@ -2,7 +2,7 @@
 
 services:
   jupyter:
-    image: jupyter/base-notebook:python-3.10
+    build: .
     restart: unless-stopped
     ports:
       - "8888:8888"
@@ -12,6 +12,4 @@ services:
       start-notebook.sh
       --NotebookApp.token=''
       --NotebookApp.password=''
-
-
 
