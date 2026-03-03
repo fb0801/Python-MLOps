@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     ports:
       - "8888:8888"
+      - "8237:8237"
     volumes:
       - .:/home/jovyan/work
     command: >
