@@ -5,11 +5,20 @@ Python MLOps project using; Python, Docker and more
 
 
 # Issues:
-Added addiontal lines to fix not defined and other errors
+- Added addiontal lines to fix not defined and other errors
+
+- fixed zenml init error
+
+- fixed 
 
 
 # Lessons learnt:
 
+- some commands will be outdated
+
+- how to use Zenml within a docker container and jupyter notebooks
+
+- exposing ports
 
 
 # Resources used:
