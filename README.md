@@ -1,5 +1,5 @@
 # Python-MLOps
-Python MLOps project using; Python, Docker and more
+Python MLOps project using; Python, Docker, Zenml and more
 
 # Changes made:
 
