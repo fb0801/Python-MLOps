@@ -1,5 +1,5 @@
 
-
-zenml
+zenml[server]
+sqlalchemy-utils
 pandas
 scikit-learn
