@@ -1,0 +1,16 @@
+
+
+services:
+  jupyter:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+      - "8237:8237"
+    volumes:
+      - .:/home/jovyan/work
+    command: >
+      start-notebook.sh
+      --NotebookApp.token=''
+      --NotebookApp.password=''
+

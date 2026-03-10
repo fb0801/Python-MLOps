@@ -1,0 +1,42 @@
+services:
+
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: zenml
+      POSTGRES_PASSWORD: zenml
+      POSTGRES_DB: zenml
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  zenml-server:
+    image: zenmldocker/zenml:latest
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      ZENML_STORE_URL: postgresql://zenml:zenml@postgres:5432/zenml
+    ports:
+      - "8237:8237"
+    command: >
+      zenml server start --host 0.0.0.0 --port 8237
+
+  jupyter:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - zenml-server
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/home/jovyan/work
+    command: >
+      start-notebook.sh
+      --NotebookApp.token=''
+      --NotebookApp.password=''
+
+volumes:
+  postgres_data:
