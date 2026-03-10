@@ -20,6 +20,8 @@ Python MLOps project using; Python, Docker, Zenml and more
 
 - exposing ports
 
+- making zenml a seperate container
+
 
 # Resources used:
 
