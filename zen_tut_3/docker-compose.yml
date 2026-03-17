@@ -17,12 +17,10 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
-    environment:
-      ZENML_STORE_URL: postgresql://zenml:zenml@postgres:5432/zenml
     ports:
-      - "8237:8237"
+      - "8080:8080"
     command: >
-      sh -c "zenml login --local --blocking --port 8237"
+      sh -c "zenml login --local --blocking --port 8080"
     
 
 
