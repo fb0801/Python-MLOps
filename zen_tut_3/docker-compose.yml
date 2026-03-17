@@ -22,7 +22,8 @@ services:
     ports:
       - "8237:8237"
     command: >
-      zenml login --local
+      sh -c "zenml login --local --blocking --port 8237"
+    
 
 
 
