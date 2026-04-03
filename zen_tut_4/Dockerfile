@@ -4,6 +4,6 @@ USER root
 
 COPY requirements.txt .
 
-RUN python -m pip install requirements.txt
+RUN python -m pip install -r requirements.txt
 
 USER $NB_UID
