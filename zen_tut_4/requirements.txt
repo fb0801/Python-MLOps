@@ -10,3 +10,5 @@ PyYAML>=6.0
 
 # Modern ZenML (includes server + local features)
 zenml[server,jupyter]>=0.55.0
+
+
