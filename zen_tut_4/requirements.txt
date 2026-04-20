@@ -6,18 +6,19 @@ streamlit>=1.8.1
 xgboost==1.5.2
 
 # Fix critical build issue
-PyYAML>=6.0
+PyYAML==5.4.1
+
 
 # Modern ZenML (includes server + local features)
 #zenml[server,jupyter]>=0.55.0
 
 
-
-
 markupsafe==1.1.1
-zenml[local,jupyter]==0.35.1
+#zenml[local,jupyter]==0.35.1
 
 # ADD THESE 👇 (VERY IMPORTANT)
 numpy==1.23.5
 scikit-learn==1.1.3
 scipy==1.9.3
+
+zenml==0.35.1
