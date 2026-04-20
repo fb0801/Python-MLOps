@@ -44,3 +44,5 @@ Python MLOps project using; Python, Docker, Zenml and more
 - https://pypi.org/project/SQLAlchemy-Utils/
 
 - https://code.visualstudio.com/docs/copilot/setup
+
+- https://code.claude.com/docs/en/overview
