@@ -1,5 +1,6 @@
 
-
-zenml
+zenml[local]
+zenml[jupyter]
+sqlalchemy-utils
 pandas
 scikit-learn

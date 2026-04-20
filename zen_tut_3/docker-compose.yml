@@ -12,17 +12,19 @@ services:
     ports:
       - "5432:5432"
 
+
+
   zenml-server:
-    image: zenmldocker/zenml:latest
+    image: zenmldocker/zenml-server:latest
+    platform: linux/amd64
     restart: unless-stopped
-    depends_on:
-      - postgres
-    environment:
-      ZENML_STORE_URL: postgresql://zenml:zenml@postgres:5432/zenml
     ports:
       - "8237:8237"
-    command: >
-      zenml server start --host 0.0.0.0 --port 8237
+
+
+    
+
+
 
   jupyter:
     build: .
