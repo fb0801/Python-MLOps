@@ -14,25 +14,22 @@ services:
 
 
 
-  zenml-server:
-    image: zenmldocker/zenml-server:latest
-    platform: linux/amd64
-    restart: unless-stopped
-    ports:
-      - "8237:8237"
+#  zenml-server:
+#    image: zenmldocker/zenml-server:latest
+#    platform: linux/amd64
+#    restart: unless-stopped
+#    ports:
+#      - "8237:8237"
 
 
     
 
-
-
   jupyter:
     build: .
     restart: unless-stopped
-    depends_on:
-      - zenml-server
     ports:
       - "8888:8888"
+      - "8237:8237"
     volumes:
       - .:/home/jovyan/work
     command: >
