@@ -14,12 +14,16 @@ services:
 
 
 
-#  zenml-server:
-#    image: zenmldocker/zenml-server:latest
-#    platform: linux/amd64
-#    restart: unless-stopped
-#    ports:
-#      - "8237:8237"
+  zenml-server:
+    image: zenmldocker/zenml-server:latest
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "8237:8237"
+    depends_on:
+      - postgres
+    environment:
+      - ZENML_STORE_URL: postgresql://zenml:zenml@postgres/zenml
 
 
     
@@ -29,13 +33,14 @@ services:
     restart: unless-stopped
     ports:
       - "8888:8888"
-      - "8237:8237"
     volumes:
       - .:/home/jovyan/work
     command: >
       start-notebook.sh
       --NotebookApp.token=''
       --NotebookApp.password=''
+    environment:
+      - ZENML_STORE_URL: http://zenml-server:8237
 
 volumes:
   postgres_data:
