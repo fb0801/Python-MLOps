@@ -15,7 +15,7 @@ services:
 
 
   zenml-server:
-    image: zenmldocker/zenml-server:latest
+    image: zenmldocker/zenml-server:0.58.2
     platform: linux/amd64
     restart: unless-stopped
     ports:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - ZENML_STORE_URL: postgresql://zenml:zenml@postgres/zenml
+      ZENML_STORE_URL: postgresql://zenml:zenml@postgres:5432/zenml
 
 
     
@@ -40,7 +40,7 @@ services:
       --NotebookApp.token=''
       --NotebookApp.password=''
     environment:
-      - ZENML_STORE_URL: http://zenml-server:8237
+      ZENML_STORE_URL: http://zenml-server:8237
 
 volumes:
   postgres_data:

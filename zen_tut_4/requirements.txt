@@ -24,7 +24,7 @@ zenml[server]==0.58.2
 numpy==1.23.5
 scikit-learn==1.1.3
 scipy==1.9.3
-
+psycopg2-binary>=2.9.5
 sqlalchemy-utils==0.38.3
 sqlmodel==0.0.8
 
