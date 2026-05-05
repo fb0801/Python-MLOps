@@ -23,7 +23,14 @@ services:
     depends_on:
       - postgres
     environment:
-      ZENML_STORE_URL: postgresql://zenml:zenml@postgres:5432/zenml
+      ZENML_DATABASE_URL: postgresql://zenml:zenml@postgres:5432/zenml
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8237/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
 
     

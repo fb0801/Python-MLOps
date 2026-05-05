@@ -9,7 +9,7 @@ Python MLOps project using; Python, Docker, Zenml and more
 
 - fixed zenml init error
 
-- fixed 
+- fixed zenml startup
 
 
 # Lessons learnt:
@@ -21,6 +21,10 @@ Python MLOps project using; Python, Docker, Zenml and more
 - exposing ports
 
 - making zenml a seperate container
+
+- ensure docker is running
+
+- using docker compose build --no-cache when i have made env and dependency changes
 
 
 # Resources used:
