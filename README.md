@@ -26,6 +26,8 @@ Python MLOps project using; Python, Docker, Zenml and more
 
 - using docker compose build --no-cache when i have made env and dependency changes
 
+- not to use docker compose build --no-cache when im debugging issues 
+
 
 # Resources used:
 
