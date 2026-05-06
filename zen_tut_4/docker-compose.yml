@@ -24,7 +24,7 @@ services:
     platform: linux/amd64
     restart: unless-stopped
     ports:
-      - "8237:8237"
+      - "8237:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,11 +32,11 @@ services:
       ZENML_DATABASE_URL: postgresql://zenml:zenml@postgres:5432/zenml
     
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8237/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 20s
+      start_period: 30s
 
 
     
@@ -56,7 +56,7 @@ services:
       --NotebookApp.token=''
       --NotebookApp.password=''
     environment:
-      ZENML_STORE_URL: http://zenml-server:8237
+      ZENML_STORE_URL: http://zenml-server:8080
 
 volumes:
   postgres_data:
