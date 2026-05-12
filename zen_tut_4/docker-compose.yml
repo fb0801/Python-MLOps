@@ -25,6 +25,7 @@ services:
     restart: unless-stopped
     ports:
       - "8237:8080"
+
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,11 +33,11 @@ services:
       ZENML_DATABASE_URL: postgresql://zenml:zenml@postgres:5432/zenml
     
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/api/v1/health"]
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8080')\""]
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 30s
+      retries: 10
+      start_period: 40s
 
 
     
