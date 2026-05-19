@@ -56,8 +56,9 @@ services:
       start-notebook.sh
       --NotebookApp.token=''
       --NotebookApp.password=''
-#    environment:
-#      ZENML_STORE_URL: http://zenml-server:8080
+    environment:
+      ZENML_STORE_URL: http://zenml-server:8080
+      zenml_SERVER_URL: http://localhost:8237
 
 volumes:
   postgres_data:
