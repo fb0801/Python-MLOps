@@ -3,6 +3,12 @@ Python MLOps project using; Python, Docker, Zenml and more
 
 # Changes made:
 
+- Carried out the project using Docker 
+
+- configured files to use .env file for sensitive info e.g. pwd, username
+
+- 
+
 
 # Issues:
 - Added addiontal lines to fix not defined and other errors
