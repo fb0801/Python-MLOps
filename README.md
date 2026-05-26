@@ -34,6 +34,8 @@ Python MLOps project using; Python, Docker, Zenml and more
 
 - not to use docker compose build --no-cache when im debugging issues 
 
+- claude can be better than ChatGPT to help find a way to resolve a issue
+
 
 # Resources used:
 

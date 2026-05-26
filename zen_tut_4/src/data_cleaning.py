@@ -12,7 +12,7 @@ class DataStrategy(ABC):
     def handle_data(self, data: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
         pass
 
-class DataPreProcessingStrategy(DataStrategy):
+class DataPreProcessStrategy(DataStrategy):
     """Concrete strategy for preprocessing data"""
     def handle_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """ preprocess the data"""
@@ -34,3 +34,47 @@ class DataPreProcessingStrategy(DataStrategy):
 
             data = data.select_dtypes(include=[np.number])
             cols_to_drop = ["customer_zip_code_prefix", "order_item_id"]
+            data = data.drop(cols_to_drop, axis=1)
+            return data
+        except Exception as e:
+            logging.error(f"Error in data preprocessing: {e}")
+            raise e
+
+
+class DataDivideStrategy(DataStrategy):
+    """
+    strat to divide data into train and test
+    """
+
+    def handle_data(self, data:pd.DataFrame)->Union[pd.DataFrame, pd.Series]:
+        """
+        divide data into train and test
+        """
+        try:
+            x = data.drop("review_score", axis=1)
+            y = data["review_score"]
+            x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+            return x_train, x_test, y_train, y_test
+        except Exception as e:
+            logging.error("Error in dividing data: {}".format(e))
+            raise e
+        
+
+class DataCleaning:
+    """
+    class for cleaning data for testing and training
+    """
+    def __init__(self, data: pd.DataFrame, strategy: DataStrategy):
+        self.data = data
+        self.strategy = strategy
+
+    def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
+        """
+        handle data using the strategy
+        """
+        try:
+            return self.strategy.handle_data(self.data)
+        except Exception as e:
+            logging.error("Error in handling data: {}".format(e))
+            raise e
+        
