@@ -19,7 +19,7 @@ def clean_df(df: pd.DataFrame) -> Tuple[
     clean the data and divide it into train and test
 
     Args:
-        df" raw data
+        df raw data
     Returns:
         x_train: train data
         x_test: test data
