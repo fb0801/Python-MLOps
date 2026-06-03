@@ -3,13 +3,19 @@ Python MLOps project using; Python, Docker, Zenml and more
 
 # Changes made:
 
+- Carried out the project using Docker 
+
+- configured files to use .env file for sensitive info e.g. pwd, username
+
+- 
+
 
 # Issues:
 - Added addiontal lines to fix not defined and other errors
 
 - fixed zenml init error
 
-- fixed 
+- fixed zenml startup
 
 
 # Lessons learnt:
@@ -21,6 +27,14 @@ Python MLOps project using; Python, Docker, Zenml and more
 - exposing ports
 
 - making zenml a seperate container
+
+- ensure docker is running
+
+- using docker compose build --no-cache when i have made env and dependency changes
+
+- not to use docker compose build --no-cache when im debugging issues 
+
+- claude can be better than ChatGPT to help find a way to resolve a issue
 
 
 # Resources used:

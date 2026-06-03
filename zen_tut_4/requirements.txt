@@ -8,16 +8,23 @@ xgboost==1.5.2
 # Fix critical build issue
 PyYAML>=6.0
 
+
+
 # Modern ZenML (includes server + local features)
 #zenml[server,jupyter]>=0.55.0
 
 
+##markupsafe==1.1.1
+#zenml[local,jupyter]==0.35.1
+#zenml>=0.55.0
+zenml[server]==0.58.2
 
-
-markupsafe==1.1.1
-zenml[local,jupyter]==0.35.1
 
 # ADD THESE 👇 (VERY IMPORTANT)
 numpy==1.23.5
 scikit-learn==1.1.3
 scipy==1.9.3
+psycopg2-binary>=2.9.5
+##sqlalchemy-utils==0.38.3
+##sqlmodel==0.0.8
+

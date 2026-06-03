@@ -4,41 +4,64 @@ services:
     image: postgres:15
     restart: unless-stopped
     environment:
-      POSTGRES_USER: zenml
-      POSTGRES_PASSWORD: zenml
-      POSTGRES_DB: zenml
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zenml"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 
 
   zenml-server:
-    image: zenmldocker/zenml-server:latest
+    image: zenmldocker/zenml-server:0.58.2
     platform: linux/amd64
     restart: unless-stopped
     ports:
-      - "8237:8237"
+      - "${ZENML_PORT}:8080"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ZENML_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8080')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
 
 
     
 
-
-
   jupyter:
     build: .
-    restart: unless-stopped
-    depends_on:
-      - zenml-server
+    container_name: zenml-jupyter
     ports:
-      - "8888:8888"
+      - "${JUPYTER_PORT}:8888"
     volumes:
       - .:/home/jovyan/work
+    depends_on:
+      zenml-server:
+        condition: service_healthy
     command: >
       start-notebook.sh
       --NotebookApp.token=''
       --NotebookApp.password=''
+    environment:
+      ZENML_STORE_URL: http://zenml-server:8080
+      ZENML_SERVER_URL: http://localhost:8237
+      ZENML_STORE_USERNAME: ${ZENML_STORE_USERNAME}
+      ZENML_STORE_PASSWORD: ${ZENML_STORE_PASSWORD}
+
 
 volumes:
   postgres_data:
