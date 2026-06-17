@@ -33,3 +33,30 @@ class MSE(Evaluation):
             logging.error("Error in calculating MSE: {}".format(e))
             raise e
         
+class R2(Evaluation):
+    """
+    evaluation strategy for calculating r2 score
+    """
+    def calculate_scores(self, y_true: np.ndarray,y_pred: np.darray):
+        try:
+            logging.info("Calculating r2 score")
+            r2 = r2_score(y_true, y_pred)
+            logging.info("R2: {}".format(r2))
+            return r2
+        except Exception as e:
+            logging.error("Error in calculating R2: {}".format(e))
+            raise e
+        
+class RMSE(Evaluation):
+    """
+    evaluation strategy for calculating root mean squared error
+    """
+    def calculate_scores(self, y_true: np.ndarray,y_pred: np.darray):
+        try:
+            logging.info("Calculating root mean squared error")
+            rmse = mean_squared_error(y_true, y_pred, squared=False)
+            logging.info("RMSE: {}".format(rmse))
+            return rmse
+        except Exception as e:
+            logging.error("Error in calculating RMSE: {}".format(e))
+            raise e
