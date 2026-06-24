@@ -9,7 +9,7 @@ class Evaluation(ABC):
     Abstract class for model evaluation"""
     
     @abstractmethod
-    def calculate_scores(self, y_true: np.ndarray,y_pred: np.darray):
+    def calculate_scores(self, y_true: np.ndarray,y_pred: np.ndarray):
         """
         Abstract method to calculate evaluation scores
         Args:
@@ -24,7 +24,7 @@ class MSE(Evaluation):
     """
     evaluation strategy for calculating mean squared error
     """
-    def calculate_scores(self, y_true: np.ndarray,y_pred: np.darray):
+    def calculate_scores(self, y_true: np.ndarray,y_pred: np.ndarray):
         try:
             logging.info("Calculating mean squared error")
             mse = mean_squared_error(y_true, y_pred)
@@ -37,7 +37,7 @@ class R2(Evaluation):
     """
     evaluation strategy for calculating r2 score
     """
-    def calculate_scores(self, y_true: np.ndarray,y_pred: np.darray):
+    def calculate_scores(self, y_true: np.ndarray,y_pred: np.ndarray):
         try:
             logging.info("Calculating r2 score")
             r2 = r2_score(y_true, y_pred)
@@ -51,7 +51,7 @@ class RMSE(Evaluation):
     """
     evaluation strategy for calculating root mean squared error
     """
-    def calculate_scores(self, y_true: np.ndarray,y_pred: np.darray):
+    def calculate_scores(self, y_true: np.ndarray,y_pred: np.ndarray):
         try:
             logging.info("Calculating root mean squared error")
             rmse = mean_squared_error(y_true, y_pred, squared=False)

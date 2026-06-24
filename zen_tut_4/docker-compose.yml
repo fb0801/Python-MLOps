@@ -31,7 +31,12 @@ services:
         condition: service_healthy
     environment:
       ZENML_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    
+      ZENML_SERVER_AUTO_ACTIVATE: "1"
+      ZENML_DEFAULT_USER_NAME: ${ZENML_STORE_USERNAME}
+      ZENML_DEFAULT_USER_PASSWORD: ${ZENML_STORE_PASSWORD}
+
+
+
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8080')\""]
       interval: 10s
