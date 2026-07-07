@@ -25,13 +25,15 @@ def evaluate_model(model: RegressorMixin,
 
         prediction = model.predict(X_test)
         mse_class = MSE()
-        mse = mse_class.calculate(y_test, prediction)
+        mse = mse_class.calculate_scores(y_test, prediction)
 
         r2_class = R2()
-        r2 = r2_class.calculate(y_test, prediction)
+        r2 = r2_class.calculate_scores(y_test, prediction)
 
         rmse_class = RMSE()
         rmse = rmse_class.calculate_scores(y_test, prediction)
+
+        return r2, rmse
     except Exception as e:
         logging.error("Error occurred while evaluating model:{}".format(e))
         raise e
