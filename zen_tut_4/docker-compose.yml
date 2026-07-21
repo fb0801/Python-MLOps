@@ -68,7 +68,7 @@ services:
       ZENML_STORE_PASSWORD: ${ZENML_STORE_PASSWORD}
 
   mlflow:
-    image: ghcr.io/mlflow/mlflow:latest
+    image: ghcr.io/mlflow/mlflow:v2.13.0
     restart: unless-stopped
     ports:
       - "5001:5000"
