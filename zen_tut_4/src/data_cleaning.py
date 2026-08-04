@@ -4,7 +4,7 @@ from typing import Union
 
 import pandas as pd
 import numpy as np
-from ssklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
 class DataStrategy(ABC):
     """Abstract base class defining strategies for handling data"""
