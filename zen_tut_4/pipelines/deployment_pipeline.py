@@ -12,7 +12,7 @@ from zenml.integrations.mlflow.services import MLFlowDeploymentService
 from zenml.integrations.mlflow.steps import mlflow_model_deployer_step
 from zenml.steps import BaseParameters, Output
 
-from steps.clean_data import clean_data
-from steps.evaluation import evaluation 
-from steps.ingest_data import ingest_data
+from steps.clean_data import clean_df
+from steps.evaluation import evaluate_model
+from steps.ingest_data import ingest_df
 from steps.model_train import train_model
