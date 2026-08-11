@@ -1,6 +1,13 @@
 from pipelines.deployment_pipeline import deploy_pipeline, interence_pipeline
 import click 
 
+from pipelines.deployment_pipeline import deploy_pipeline, interence_pipeline
+from rich import print
+from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri
+from zenml.integrations.mlflow.model_deployers.mlflow_deployer import (
+    MLFlowModelDeployer,
+)
+from zenml.integrations.mlflow.services import MLFlowDeploymentService
 
 DEPLOY ="deploy"
 PREDICT = "predict"
@@ -25,7 +32,10 @@ DEPLOY_AND_PREDICT = "deploy_and_predict"
     help="Minimum accuracy to deploy the model",
 )
 
-def run_deployment(confi: str, min_accuracy: float):
+def run_deployment(config: str, min_accuracy: float):
+    mlflow_model_deployer_component = MLFlowModelDeployer.get_active_model_deployer()
+    deploy = config == DEPLOY or config == DEPLOY_AND_PREDICT
+    predict = config == PREDICT or config == DEPLOY_AND_PREDICT
     if deploy:
         deploy_pipeline(min_accuracy)
     if predict:

@@ -44,4 +44,11 @@ def continuous_deployment_pipeline(
     X_train, X_test, y_train, y_test = clean_df(df)
     model = train_model(X_train, X_test, y_train, y_test)
     r2_score, rmse = evaluate_model(model, X_test, y_test)
-    deployment_decision = deployment_trigger(rmse)
+    deployment_decision = deployment_trigger(r2_score)
+    mflow_model_deployer_step(
+        model=model,
+        deployment_decision=deployment_decision,
+        workers=workers,
+        timeout=timeout,
+    )
+    
