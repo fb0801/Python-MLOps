@@ -55,4 +55,10 @@ def run_deployment(config: str, min_accuracy: float):
         "compare two or more runs.\n\n"
     )
 
-    
+    # fectch exisiting services with same pipeline name, step name and model name
+    existing_services = mlflow_model_deployer_component.find_model_server(
+        pipeline_name="continuous_deployment_pipeline",
+        pipeline_step_name="mlflow_model_deployer",
+        model_name="model",
+    )
+    if 
