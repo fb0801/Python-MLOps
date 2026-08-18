@@ -61,4 +61,24 @@ def run_deployment(config: str, min_accuracy: float):
         pipeline_step_name="mlflow_model_deployer",
         model_name="model",
     )
-    if 
+    if existing_services:
+        service = cast(MLFlowDeploymentService, existing_services[0])
+        if service.status == "running":
+            print(
+                f"The mflow prediction service is running locally as a daemon "
+                f"Process service adn accepts inference requests at:\n"
+                f" {service.predict_url}\n"
+                f"To stop the service run, run"
+                f"[italic green] `zenml model-deployer model delete "
+                f"{str(service.uuid)}`[/italic green]"
+            )
+        elif service.is_failed:
+            print(
+                f"The MLFLOW prediction server is in a failed state:\n"
+                f"Late state: '{service.status.state.value}'\n"
+                f"Last error: '{service.status.last_error}'"
+            )
+    else:
+        print(
+
+        )
