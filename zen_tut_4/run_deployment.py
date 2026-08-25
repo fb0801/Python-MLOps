@@ -80,5 +80,11 @@ def run_deployment(config: str, min_accuracy: float):
             )
     else:
         print(
+            "No MFflow prediction server is currently running. The deployment"
+            "pipleline must run first to train a model and deploy it. Execute"
+            "the same command withbthe `--deploy` argyment to deploy a model"
 
         )
+
+if __name__ == "__main__":
+    run_deployment()
