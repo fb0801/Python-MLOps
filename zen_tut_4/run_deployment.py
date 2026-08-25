@@ -1,6 +1,14 @@
 from pipelines.deployment_pipeline import deploy_pipeline, interence_pipeline
 import click 
 
+from pipelines.deployment_pipeline import deploy_pipeline, interence_pipeline
+from pipelines.deployment_pipeline import continuous_deployment_pipeline
+from rich import print
+from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri
+from zenml.integrations.mlflow.model_deployers.mlflow_deployer import (
+    MLFlowModelDeployer,
+)
+from zenml.integrations.mlflow.services import MLFlowDeploymentService
 
 DEPLOY ="deploy"
 PREDICT = "predict"
@@ -25,8 +33,59 @@ DEPLOY_AND_PREDICT = "deploy_and_predict"
     help="Minimum accuracy to deploy the model",
 )
 
-def run_deployment(confi: str, min_accuracy: float):
+def run_deployment(config: str, min_accuracy: float):
+    mlflow_model_deployer_component = MLFlowModelDeployer.get_active_model_deployer()
+    deploy = config == DEPLOY or config == DEPLOY_AND_PREDICT
+    predict = config == PREDICT or config == DEPLOY_AND_PREDICT
+
     if deploy:
-        deploy_pipeline(min_accuracy)
+        continuous_deployment_pipeline(
+            data_path="data/processed/cleaned_data.csv",
+            min_accuracy=min_accuracy,
+            workers=3,
+            timeout=60,)
     if predict:
         interence_pipeline()
+
+    print(
+        "You can run:\n"
+        f"[italic green] mlflow ui --backend-store-uri {get_tracking_uri()}"
+        "[/italic green]\n ...to inspect your experiment run within the MLFlow"
+        "UI.\nYou can find your runs tracked within the "
+        "`mlflow_example_pipleline` experiment. There you'll also be abelt to "
+        "compare two or more runs.\n\n"
+    )
+
+    # fectch exisiting services with same pipeline name, step name and model name
+    existing_services = mlflow_model_deployer_component.find_model_server(
+        pipeline_name="continuous_deployment_pipeline",
+        pipeline_step_name="mlflow_model_deployer",
+        model_name="model",
+    )
+    if existing_services:
+        service = cast(MLFlowDeploymentService, existing_services[0])
+        if service.status == "running":
+            print(
+                f"The mflow prediction service is running locally as a daemon "
+                f"Process service adn accepts inference requests at:\n"
+                f" {service.predict_url}\n"
+                f"To stop the service run, run"
+                f"[italic green] `zenml model-deployer model delete "
+                f"{str(service.uuid)}`[/italic green]"
+            )
+        elif service.is_failed:
+            print(
+                f"The MLFLOW prediction server is in a failed state:\n"
+                f"Late state: '{service.status.state.value}'\n"
+                f"Last error: '{service.status.last_error}'"
+            )
+    else:
+        print(
+            "No MFflow prediction server is currently running. The deployment"
+            "pipleline must run first to train a model and deploy it. Execute"
+            "the same command withbthe `--deploy` argyment to deploy a model"
+
+        )
+
+if __name__ == "__main__":
+    run_deployment()
