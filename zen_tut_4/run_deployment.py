@@ -40,7 +40,8 @@ def run_deployment(config: str, min_accuracy: float):
 
     if deploy:
         continuous_deployment_pipeline(
-            min_accuracy,
+            data_path="data/processed/cleaned_data.csv",
+            min_accuracy=min_accuracy,
             workers=3,
             timeout=60,)
     if predict:

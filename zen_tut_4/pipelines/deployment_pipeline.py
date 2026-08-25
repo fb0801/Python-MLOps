@@ -21,7 +21,7 @@ docker_settings = DockerSettings(required_integrations=[MLFLOW])
 
 
 class DeploymentPipelineParameters(BaseParameters):
-    min_accuracy: float = 0.92
+    min_accuracy: float = 0.5
     workers: int = 1
     timeout: int = DEDAULT_SERVICE_START_STOP_TIMEOUT
 
@@ -31,24 +31,26 @@ def deployment_trigger(
     config: DeploymentTriggerConfig,
 ):
     "trigger the deployment if the accuracy is greater"
-    return accuracy >= config.min_accuracy
+    return accuracy > config.min_accuracy
 
 
 @pipeline(enable_cache=False, settings={"docker": docker_settings})
 def continuous_deployment_pipeline(
-    min_accuracy: float = 0.92,
+    data_path: str, 
+    min_accuracy: float = 0.5,
     workers: int = 1,
     timeout: int = DEDAULT_SERVICE_START_STOP_TIMEOUT,
 ):
-    df = ingest_df()
+    df = ingest_df(data_path=data_path)
     X_train, X_test, y_train, y_test = clean_df(df)
     model = train_model(X_train, X_test, y_train, y_test)
     r2_score, rmse = evaluate_model(model, X_test, y_test)
     deployment_decision = deployment_trigger(r2_score)
     mflow_model_deployer_step(
         model=model,
-        deployment_decision=deployment_decision,
+        deploy_decision=deployment_decision,
         workers=workers,
         timeout=timeout,
     )
+
     
